@@ -1,13 +1,24 @@
 import express from 'express'
 import morgan from 'morgan';
-
 import dotenv from "dotenv";
+import rateLimit from "express-rate-limit"
+import helmet from "helmet";
 dotenv.config();
 
 
 const app = express()
 const PORT = process.env.PORT
 
+//Global Rate Limiting
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    limit: 100, // limit each IP to 100 requests per windowMs
+    message: "Too many requests from this IP, please try later"
+    })
+
+//Security middleware
+app.use(helmet())
+app.use('/api', limiter)    
 
 
 //logging middleware
