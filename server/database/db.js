@@ -107,5 +107,6 @@ class DatabaseConnecetion{
 // create a singleton instance
 
 const dbConnection = new DatabaseConnecetion()
+
 export default dbConnection.connect.bind(dbConnection)
 export const getDBStatus = dbConnection.getConnectionStatus.bind(dbConnection)
